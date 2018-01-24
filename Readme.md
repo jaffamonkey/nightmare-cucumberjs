@@ -40,4 +40,3 @@ The output should **green** (passing tests):
     	Given I visit www.wikipedia.org website
     	Then website title should be "Wikipedia"
     	
-By [@sauliuz](https://twitter.com/sauliuz) and [popularowl.com](http://www.popularowl.com "open source technologies, simplified") 
