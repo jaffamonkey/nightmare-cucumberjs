@@ -1,8 +1,7 @@
-
 // library for abstracting complex
 // methods in step-definition files
 // 
-// each funcional method expects the instance 
+// each functional method expects the instance
 // of nightmare object to be passed to it.
 
 
@@ -40,7 +39,6 @@ Misbehave.prototype.setDomain = function(scheme,domain) {
 
 
 Misbehave.prototype.assertTitle = function(expectedTitle, nightmare, callback) { // callback(error, response)
-
 	// nightmare for evaluating hybrid app
     nightmare
     	.goto(this.domain)

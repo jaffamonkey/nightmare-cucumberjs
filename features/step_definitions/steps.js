@@ -1,6 +1,7 @@
 // main step definitions file
+var {Given, Then, When, Before, After} = require('cucumber');
 
-var misbehave = require('./misbehave.js');
+var misbehave = require('./library.js');
 var Nightmare = require('nightmare');
 var jsonfile = require('jsonfile');
 var fs = require('fs');
@@ -8,13 +9,12 @@ var fs = require('fs');
 // will hold nightmare instance
 var nightmare = {};
 
-module.exports = function() {
 
 //////////////////
 // preparations //
 //////////////////
 		
-	this.BeforeFeatures(function(scenario, callback) {
+	Before(function() {
 		console.log('setting up nightmare..')		
 		nightmare = Nightmare({ 
 			show: false
@@ -27,33 +27,26 @@ module.exports = function() {
                         fs.unlink('failed.json');
                 }
         });
-
-        // good to move forward
-        callback();
 	});
 
-	this.Before(function(scenario, callback) {
+	Before(function(scenario) {
 		this.misbehave = null;
 		this.misbehave = misbehave;	
-		callback();
 	});
+    //
+	//After(function(scenario) {
+	//	// capture failed scenarios in file
+     //   if(scenario.isFailed()){
+     //           var file = 'failed.json';
+     //           var entry = {scenario: 'failed'};
+    //
+     //           jsonfile.writeFile(file, entry, function (err) {
+     //                   console.log('recording failed scenario');
+     //           });
+     //   }
+	//});
 
-	this.After(function(scenario, callback) {
-		// capture failed scenarios in file
-        if(scenario.isFailed()){
-                var file = 'failed.json';
-                var entry = {scenario: 'failed'};
-
-                jsonfile.writeFile(file, entry, function (err) {
-                        console.log('recording failed scenario');
-                });
-        }
-        
-        // good to move forward
-        callback();
-	});
-
-	this.AfterFeatures(function(scenario, callback){
+	After(function(){
 		nightmare
 			.end()
 			.then(function () {
@@ -65,13 +58,13 @@ module.exports = function() {
 // Gherking scenario implementation //
 //////////////////////////////////////
 
-	this.Given(/^I visit (.*) website$/, function(domain, callback) {
+	Given(/^I visit (.*) website$/, function(domain, callback) {
 		this.misbehave.setDomain('http',domain);		
 		callback();		
 	});	
 
 
-	this.Then(/^website title should be "(.*)"$/, function(siteTitle, callback) {			
+	Then(/^website title should be "(.*)"$/, function(siteTitle, callback) {
 
 		this.misbehave.assertTitle(siteTitle, nightmare, function(error, assertionResponse){
 
@@ -87,6 +80,4 @@ module.exports = function() {
 			}		
 		});		
 	});
-
-};
 

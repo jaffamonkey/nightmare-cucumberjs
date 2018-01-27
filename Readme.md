@@ -4,39 +4,25 @@
 
 ### Overview
 
-This project is an example of BDD (behaviour driven development) setup with [nightmare](https://github.com/segmentio/nightmare) and [cucumberjs](https://github.com/cucumber/cucumber-js) frameworks.
-
-You can use example setup in this project for creating BDD tests for your web project.
-
-You can also setup continuous application monitoring for your web apps with the help of automated CI jobs.
-
+Test framework Using Cucumber 4 with NightmareJS 2.10 (which provides fast headless browser).
 
 ### How to start using?
 Clone this code repositary. Install all required nodejs packages with
 
-	npm install
+```
+$ npm install
+$ ./node_modules/.bin/cucumber-js -r features/step_definitions features -f usage
+```
 
-You must have [Grunt installed](http://gruntjs.com/installing-grunt) on your box.
+_Full list of output format options are:_
 
-You can now run
-
-	grunt test
+* event-protocol - prints the event protocol.
+* json - prints the feature as JSON.
+* progress - prints one character per scenario (default).
+* progress-bar - prints a progress bar and outputs errors/warnings along the way.
+* rerun - prints the paths of any non passing scenarios (example)
+* snippets - prints just the code snippets for undefined steps.
+* summary - prints a summary only, after all scenarios were executed.
+* usage - prints a table with data about step definitions usage.
+* usage-json - prints the step definitions usage data as JSON.
 	
-The output should **green** (passing tests):
-
-	Feature: 
-		I would like to monitor several websites
-  	 	and validate that their titles are as expected.
-  	
-  		Scenario: httpbin.org website should be up and running
-  		Given I visit httpbin.org website
-  		Then website title should be "httpbin(1): HTTP Client Testing Service"
-  	
-  		Scenario: github.com website should be up and running
-    	Given I visit github.com website
-    	Then website title should be "GitHub · Where software is built"
-    	
-    	Scenario: wikipedia.org site should be up and running
-    	Given I visit www.wikipedia.org website
-    	Then website title should be "Wikipedia"
-    	
